@@ -47,4 +47,16 @@ model Update {
   asset      String? //? means optional
   product_id Int
   product    Product       @relation(fields: [product_id], references: [id])
+  update_points UpdatePoint[]
+}
+
+model UpdatePoint {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime
+
+  name String @db.VarChar(255)
+  description String @db.Text
+  update_id Int
+  update Update @relation(fields: [update_id],references: [id])
 }
