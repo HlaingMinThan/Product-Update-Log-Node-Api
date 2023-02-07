@@ -4,8 +4,15 @@ import morgan from 'morgan';
 
 const app = express();
 
+// this pattern is used behind the scene of a express middleware package like morgan
+let customLogger = (message) => (req,res,next) => {
+    console.log('welcome from '+ message)
+    next()
+}
+
 // order matters
 app.use(morgan('dev')); 
+app.use(customLogger('CUSTOM LOGGER')); // app wide middleware
 
 //thanks express offically support this now
 app.use(express.json()) // for parsing application/json
