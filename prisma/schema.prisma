@@ -26,4 +26,25 @@ model Product {
   name    String @db.VarChar(255)
   user_id Int
   user    User   @relation(fields: [user_id], references: [id])
+  updates  Update[]
+}
+
+enum UPDATE_STATUS {
+  IN_PROGRESS
+  SHIPPED
+  DEPRECATED
+}
+
+model Update {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime
+
+  title      String
+  body       String
+  status     UPDATE_STATUS @default(IN_PROGRESS)
+  version    String? //? means optional
+  asset      String? //? means optional
+  product_id Int
+  product    Product       @relation(fields: [product_id], references: [id])
 }
