@@ -4,7 +4,7 @@ let router = Router();
 
 // Products routes
 router.get('/product' , (req,res) => {
-    res.json({message : "Hello"})
+    res.send('hi there')
 })
 router.post('/product' , () => {})
 router.get('/product/:id' , () => {})
