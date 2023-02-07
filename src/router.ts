@@ -6,7 +6,9 @@ let router = Router();
 router.get('/product' , (req,res) => {
     res.send('hi there')
 })
-router.post('/product' , () => {})
+router.post('/product' , (req,res) => {
+    return res.json(req.body)
+})
 router.get('/product/:id' , () => {})
 router.put('/product/:id' , () => {})
 router.delete('/product/:id' , () => {})
