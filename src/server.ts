@@ -1,6 +1,7 @@
 import express from 'express';
 import router from './router';
 import morgan from 'morgan';
+import cors from 'cors';
 
 const app = express();
 
@@ -11,6 +12,7 @@ let customLogger = (message) => (req,res,next) => {
 }
 
 // order matters
+app.use(cors()); 
 app.use(morgan('dev')); 
 app.use(customLogger('CUSTOM LOGGER')); // app wide middleware
 
