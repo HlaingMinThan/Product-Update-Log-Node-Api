@@ -1,11 +1,20 @@
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 let createJWT = (user) => {
     let token = jwt.sign({id : user.id , username : user.username }, process.env.JWT_SECRET);
     return token;
 }
 
-export const protect = (req , res , next) => {
+let comparePasswords = (password,hash)  =>{
+    return bcrypt.compare(password,hash); // return async
+}
+
+let hashPassword = (password) => {
+    return bcrypt.hash(password, 5); // return async
+}
+
+let protect = (req , res , next) => {
     //get and check the bearer exists
     const bearer = req.headers.authorization;
     if(!bearer) {
@@ -30,4 +39,4 @@ export const protect = (req , res , next) => {
 
 }
 
-export { createJWT };
+export { createJWT ,hashPassword , comparePasswords , protect };
