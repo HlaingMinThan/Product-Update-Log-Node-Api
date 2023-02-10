@@ -31,8 +31,7 @@ let signIn = async (req,res) => {
         return res.status(401).json({message : 'password is invalid'});
     }
 
-    return res.json(user);
-
+    return res.status(201).json({token :  createJWT(user)});
 }
 
 export {createUser , signIn};
