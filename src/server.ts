@@ -4,6 +4,9 @@ import morgan from 'morgan';
 import cors from 'cors';
 import { protect } from './modules/auth';
 import { createUser , signIn } from './handlers/user';
+import db from './db';
+import { check } from 'express-validator';
+const { body, validationResult } = require('express-validator');
 
 const app = express();
 
@@ -29,7 +32,25 @@ app.get('/' , (req,res) => {
 
 app.use('/api', protect , router);
 
-app.post('/user',createUser)
+app.post('/user', 
+    [
+        //check email already exists
+        check('username').notEmpty().custom(async (value) => {
+            if(value){
+                let user = await db.user.findUnique({
+                    where : {
+                        username : value
+                    }
+                })
+                if (user) {
+                    throw new Error('E-mail already in use');
+                }
+            }
+        }),
+        //check pw less than 5 chars
+        check('password').notEmpty().isLength({ min: 5 }).withMessage('must be at least 5 chars long')
+    ] ,
+    createUser)
 app.post('/sign-in',signIn)
 
 export default app;

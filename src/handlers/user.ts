@@ -1,8 +1,17 @@
 import { comparePasswords, createJWT, hashPassword } from '../modules/auth';
+const { validationResult } = require('express-validator');
 import Prisma from '../db';
 
 //register
 let createUser = async (req,res) => {
+    //handleError
+    // https://express-validator.github.io/docs/validation-result-api
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     let user = await Prisma.user.create({
         data : {
             username : req.body.username,
