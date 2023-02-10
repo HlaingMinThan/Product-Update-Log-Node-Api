@@ -61,4 +61,18 @@ let updateProduct = async (req,res) => {
     return res.status(200).json({data : product});
 }
 
-export { getProducts ,getProduct, createProduct , updateProduct};
+//delete product by user
+let deleteProduct = async (req,res) => {
+    let product = await db.product.delete({
+        where : {
+            id_user_id : {
+                id : +req.params.id,
+                user_id : req.user.id
+            }
+        },
+    });
+
+    return res.status(200).json({data : product, message : 'product deleted'});
+}
+
+export { getProducts ,getProduct, createProduct , updateProduct , deleteProduct};
