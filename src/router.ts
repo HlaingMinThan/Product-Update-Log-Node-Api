@@ -1,15 +1,13 @@
 import { Router } from "express";
 import handleError from "./modules/middlewares/handleError";
 import { check } from "express-validator";
-import { getProducts, getProduct} from './handlers/product';
+import { getProducts, getProduct, createProduct} from './handlers/product';
 
 let router = Router();
 
 // Products routes
 router.get('/product' , getProducts)
-router.post('/product' , check('name').isString() ,handleError,(req,res) => {
-    return res.json(req.body)
-})
+router.post('/product' , check('name').isString() ,handleError, createProduct)
 router.get('/product/:id' , getProduct)
 router.put('/product/:id' ,check('name').isString() ,handleError, () => {})
 router.delete('/product/:id' , () => {})

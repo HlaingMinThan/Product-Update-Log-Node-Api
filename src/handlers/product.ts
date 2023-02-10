@@ -29,4 +29,18 @@ let getProduct = async (req,res) => {
 
     return res.status(200).json({data : product});
 }
-export { getProducts ,getProduct };
+
+//create product by user
+
+let createProduct = async (req,res) => {
+    let product = await db.product.create({
+        data : {
+            name :  req.body.name,
+            user_id : req.user.id
+        }
+    });
+
+    return res.status(200).json({data : product});
+}
+
+export { getProducts ,getProduct, createProduct };
