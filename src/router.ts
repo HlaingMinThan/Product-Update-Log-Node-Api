@@ -1,7 +1,7 @@
 import { Router } from "express";
 import handleError from "./modules/middlewares/handleError";
 import { check } from "express-validator";
-import { getProducts, getProduct, createProduct} from './handlers/product';
+import { getProducts, getProduct, createProduct, updateProduct} from './handlers/product';
 
 let router = Router();
 
@@ -9,7 +9,7 @@ let router = Router();
 router.get('/product' , getProducts)
 router.post('/product' , check('name').isString() ,handleError, createProduct)
 router.get('/product/:id' , getProduct)
-router.put('/product/:id' ,check('name').isString() ,handleError, () => {})
+router.put('/product/:id' ,check('name').isString() ,handleError, updateProduct)
 router.delete('/product/:id' , () => {})
 
 // Updates routes

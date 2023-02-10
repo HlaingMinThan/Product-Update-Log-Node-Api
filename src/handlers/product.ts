@@ -43,4 +43,22 @@ let createProduct = async (req,res) => {
     return res.status(200).json({data : product});
 }
 
-export { getProducts ,getProduct, createProduct };
+//update product by user
+let updateProduct = async (req,res) => {
+    let product = await db.product.update({
+        where : {
+            id_user_id : {
+                id : +req.params.id,
+                user_id : req.user.id
+            }
+        },
+        data : {
+            name :  req.body.name,
+            user_id : req.user.id
+        }
+    });
+
+    return res.status(200).json({data : product});
+}
+
+export { getProducts ,getProduct, createProduct , updateProduct};
