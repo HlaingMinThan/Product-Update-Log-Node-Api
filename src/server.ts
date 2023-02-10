@@ -6,7 +6,7 @@ import { protect } from './modules/auth';
 import { createUser , signIn } from './handlers/user';
 import db from './db';
 import { check } from 'express-validator';
-const { body, validationResult } = require('express-validator');
+import handleError from './modules/middlewares/handleError';
 
 const app = express();
 
@@ -50,6 +50,7 @@ app.post('/user',
         //check pw less than 5 chars
         check('password').notEmpty().isLength({ min: 5 }).withMessage('must be at least 5 chars long')
     ] ,
+    handleError,
     createUser)
 app.post('/sign-in',signIn)
 
