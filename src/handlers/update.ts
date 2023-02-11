@@ -19,8 +19,14 @@ let getUpdates = async (req,res) => {
     return res.status(200).send({data : product.updates});
 }
 
-let getUpdate = (req,res) => {
+let getUpdate = async (req,res) => {
+    let update = await db.update.findUnique({
+        where : {
+            id : +req.params.id
+        }
+    })
 
+    return res.status(200).send({data : update});
 }
 let createUpdate = (req,res) => {
 
