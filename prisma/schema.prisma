@@ -39,7 +39,7 @@ enum UPDATE_STATUS {
 model Update {
   id         Int      @id @default(autoincrement())
   created_at DateTime @default(now())
-  updated_at DateTime
+  updated_at DateTime @updatedAt
 
   title      String
   body       String
@@ -49,12 +49,13 @@ model Update {
   product_id Int
   product    Product       @relation(fields: [product_id], references: [id])
   update_points UpdatePoint[]
+  @@unique([id,product_id])
 }
 
 model UpdatePoint {
   id         Int      @id @default(autoincrement())
   created_at DateTime @default(now())
-  updated_at DateTime
+  updated_at DateTime @updatedAt
 
   name String @db.VarChar(255)
   description String @db.Text

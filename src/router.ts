@@ -18,6 +18,7 @@ router.get('/update' , getUpdates)
 router.post('/update',[
     check('title').notEmpty().isString(),
     check('body').notEmpty().isString(),
+    check('product_id').notEmpty().isNumeric(),
     check('status').optional().isIn([
         'IN_PROGRESS',
         'SHIPPED',
