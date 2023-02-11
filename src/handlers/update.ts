@@ -1,22 +1,16 @@
 import db from "../db"
 
+//get user's products's updates
 let getUpdates = async (req,res) => {
-    //first way
-    // let updates = await db.update.findMany({
-    //     where : {
-    //         product_id : +req.body.product_id
-    //     }
-    // });
-    let product = await db.product.findUnique({
+    let products  = await db.product.findMany({
         where : {
-            id : +req.body.product_id
+            user_id : +req.user.id
         },
         include : {
             updates : true
         }
     });
-
-    return res.status(200).send({data : product.updates});
+    return res.status(200).send({data : products.map(product => product.updates)});
 }
 
 let getUpdate = async (req,res) => {
