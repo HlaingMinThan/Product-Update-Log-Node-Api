@@ -2,6 +2,7 @@ import { Router } from "express";
 import handleError from "./modules/middlewares/handleError";
 import { check } from "express-validator";
 import { getProducts, getProduct, createProduct, updateProduct , deleteProduct} from './handlers/product';
+import { getUpdates, getUpdate, createUpdate, updateUpdate , deleteUpdate} from './handlers/update';
 
 let router = Router();
 
@@ -13,7 +14,7 @@ router.put('/product/:id' ,check('name').isString() ,handleError, updateProduct)
 router.delete('/product/:id' , deleteProduct)
 
 // Updates routes
-router.get('/update' , () => {})
+router.get('/update' , getUpdates)
 router.post('/update',[
     check('title').notEmpty().isString(),
     check('body').notEmpty().isString(),
@@ -25,8 +26,8 @@ router.post('/update',[
     check('version').optional().isString(),
     check('asset').optional().isString(),
 
-],handleError, () => {})
-router.get('/update/:id' , () => {})
+],handleError, createUpdate)
+router.get('/update/:id' , getUpdate)
 router.put('/update/:id' , [
     check('title').optional().isString(),
     check('body').optional().isString(),
@@ -37,8 +38,8 @@ router.put('/update/:id' , [
     ]),
     check('version').optional().isString(),
     check('asset').optional().isString(),
-],handleError,() => {})
-router.delete('/update/:id' , () => {})
+],handleError,updateUpdate)
+router.delete('/update/:id' , deleteUpdate)
 
 // UpdatePoints routes
 router.get('/update-points' , () => {})

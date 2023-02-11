@@ -52,6 +52,9 @@ app.post('/user',
     ] ,
     handleError,
     createUser)
-app.post('/sign-in',signIn)
+app.post('/sign-in',[
+    //check pw less than 5 chars
+    check('password').notEmpty().isLength({ min: 5 }).withMessage('must be at least 5 chars long')
+],handleError,signIn)
 
 export default app;

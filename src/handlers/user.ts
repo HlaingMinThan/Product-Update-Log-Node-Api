@@ -24,7 +24,9 @@ let signIn = async (req,res) => {
             username : req.body.username
         }
     });
-
+    if(!user) {
+        return res.status(401).json({message : 'username not found'});
+    }
     //check is the password valid ?
     let isPasswordValid = await comparePasswords(req.body.password , user.password);
     if (!isPasswordValid){
