@@ -53,4 +53,9 @@ router.get('/update-points/:id' , () => {})
 router.put('/update-points/:id' , () => {})
 router.delete('/update-points/:id' , () => {})
 
+//error handler should add in each subroute file.
+router.use((err,req,res,next) => {
+    return res.json({message : 'err = ' + err.message});
+})
+
 export default router;
