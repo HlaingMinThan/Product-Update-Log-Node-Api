@@ -34,7 +34,6 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 // })
 
 app.get('/' , (req,res) => {
-    console.log('hello from express');
     return res.status(200).json({message : 'hello world'});
 })
 
